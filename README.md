@@ -30,14 +30,74 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
 
 ## API Endpoints
 
-These steps enable you to run the app locally within your IDE.  In MVP#2 i will provide a docker container and steps to run locally outside of the IDE.
-* IDE and Postgres Setup:
-* Step 1:
-    * abc...
-    * def...
-* Step 2:
-    * abc...
-    * def...
+
+* GET a Customer Information and Hometown Weather: http://localhost:8080/findCust?id=#
+
+{
+    "Id": 16,
+    "Firstname": "Lucky",
+    "Lastname": "Customer",
+    "Hometown": "Minneapolis",
+    "Weather": [
+        {
+            "main": "Clouds",
+            "description": "overcast clouds"
+        }
+    ],
+    "Main": {
+        "temp": 39.09,
+        "pressure": 1007,
+        "humidity": 60,
+        "temp_min": 37.4,
+        "temp_max": 41
+    }
+}
+
+* GET a Cart for a Customer: http://localhost:8080/findCart?id=#&custid=#
+
+{
+    "Id": 11,
+    "custId": 16,
+    "Item": "Lucky Test 500",
+    "Item Description": "Very Lucky Toy 500",
+    "Retail": 500.50,
+    "Cart Number": 3
+}
+
+* GET all the Carts for a Customer: 
+
+{
+    "Id": 6,
+    "Firstname": "Lucky",
+    "Lastname": "Six",
+    "carts": [
+        {
+            "Id": 1,
+            "custId": 6,
+            "Item": "Big Cat Bulldozer",
+            "Item Description": "Toy Bulldozer",
+            "Retail": 10.25,
+            "Cart Number": 1
+        },
+        {
+            "Id": 2,
+            "custId": 6,
+            "Item": "Pokemon Big Pack",
+            "Item Description": "Pokemon Pack",
+            "Retail": 9.99,
+            "Cart Number": 1
+        }
+    ]
+}
+
+* GET a Cart: 
+
+* GET a Cart: 
+
+* GET a Cart: 
+
+* GET a Cart: 
+
 
 ## MVP1 Features
 
