@@ -124,6 +124,8 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
     * Add Metrics 
     * Add Logger/Logback out to file or Elastic
     * Add Custom Error Handling in Event Controller 
+    * Setup Deployment Pipeline to K8s (Minikube) or Cloud Env using Drone, and add Secrets, etc.
+    
     
 
 
