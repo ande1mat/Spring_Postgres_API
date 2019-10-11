@@ -1,7 +1,7 @@
 # Spring_Postgres_API Project
 Example of Springboot API connecting to Postgres DB
 
-* [Local Setup](#local setup)
+* [Local Setup](#Local Setup)
 * [Pragmatic REST](#pragmatic-rest)
 
 ## Local Setup 
