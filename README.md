@@ -8,7 +8,14 @@ Example of Springboot API connecting to Postgres DB
 
 ## Local Setup 
 
-This document provides guidelines and examples for White House Web APIs, encouraging consistency, maintainability, and best practices across applications. White House APIs aim to balance a truly RESTful API interface with a positive developer experience (DX).
+These steps enable you to run the app locally within your IDE.  In MVP#2 i will provide a docker container and steps to run locally outside of the IDE.
+* IDE and Postgres Setup:
+* Step 1:
+    * abc...
+    * def...
+* Step 2:
+    * abc...
+    * def...
 
 
 ## API Endpoints
