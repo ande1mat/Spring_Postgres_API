@@ -36,7 +36,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     * Enable an external API call to return current weather conditions based on Customers hometown 
     * Create a custom mapper object for DTO/Model, and enable Mapstruct's mapper library
     * Create Health Endpoint
-    * Add Unit Tests
+    * Add Unit Tests / Test Suite
 
 
 ## MVP2 Backlog Features
