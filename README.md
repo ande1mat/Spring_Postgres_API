@@ -31,7 +31,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
 ## API Endpoints
 
 
-* GET a Customer Information and Hometown Weather: http://localhost:8080/findCust?id=#
+* Get a Customer Information and Hometown Weather: http://localhost:8080/findCust?id=#
 
 {
     "Id": 16,
@@ -53,7 +53,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     }
 }
 
-* GET a Cart for a Customer: http://localhost:8080/findCart?id=#&custid=#
+* Get a Cart for a Customer: http://localhost:8080/findCart?id=#&custid=#
 
 {
     "Id": 11,
@@ -64,7 +64,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     "Cart Number": 3
 }
 
-* GET all the Carts for a Customer: 
+* Get all the Carts for a Customer: http://localhost:8080/findCustCart?id=#
 
 {
     "Id": 6,
@@ -90,16 +90,21 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     ]
 }
 
-* GET a Cart: 
+* Save new Customer: http://localhost:8080/newcustomer
 
-* GET a Cart: 
+* Save new Cart for Customer: http://localhost:8080/newcart
 
-* GET a Cart: 
+* Update Customer: http://localhost:8080/updatecustomer
 
-* GET a Cart: 
+* Update Cart: http://localhost:8080/updatecart
 
+* Delete Customer: http://localhost:8080/deletecustomer
 
-## MVP1 Features
+* Delete Cart: http://localhost:8080/deletecart
+
+NOTE: I have added a Postman Collection in this Repo for each of the above endpoints you can import and use yourself
+
+## MVP1 Features (in the current Release)
 
     * Create a Retail API for a Customer and their Cart details
     * Enable basic CRUD + Get functions to the Customer and Cart Postgres entities
