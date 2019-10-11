@@ -10,12 +10,22 @@ Example of Springboot API connecting to Postgres DB
 
 These steps enable you to run the app locally within your IDE.  In MVP#2 i will provide a docker container and steps to run locally outside of the IDE.
 * IDE and Postgres Setup:
+
 * Step 1:
-    * abc...
-    * def...
+    * Setup a local or hosted Postgres Server
+    * Use the Postgres configurations in the Application Properties for database name and credentials
+    * Run the DDL scripts in the Models Customer and Cart files.
+    
 * Step 2:
-    * abc...
-    * def...
+    * This is a Maven based Spring boot application so you can enter these commands in the project directory:
+      --> mvn --version //Check your maven version, if not present install it
+      --> mvn clean package //Compile the application code, run the test, and package it as determined by your pom.xml
+      --> mvn spring-boot:run . //start up the service.  Ctl-C to stop the service
+      OR
+    * Import to your favorite IDE - IntelliJ and run from there if you choose.
+    
+    * Run the application listening on port http://localhost:8080/ set in the Application properties
+    * Check the Health Endpoint status should be 'UP' http://localhost:8080/actuator/health
 
 
 ## API Endpoints
