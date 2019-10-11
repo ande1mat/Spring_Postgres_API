@@ -14,7 +14,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
 * Step 1:
     * Setup a local or hosted Postgres Server
     * Use the Postgres configurations in the Application Properties for database name and credentials
-    * Run the DDL scripts in the Models Customer and Cart files.
+    * Run the DDL scripts in the Models Customer and Cart files
     
 * Step 2:
     * This is a Maven based Spring boot application so you can enter these commands in the project directory:
@@ -57,7 +57,8 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     * Add Delete by Cart Number endpoint
     * Clean up the code to have better naming, camelCase, and add java Docs
     * Add Metrics 
-    * Add Logger/Logback
+    * Add Logger/Logback out to file or Elastic
     * Add Custom Error Handling in Event Controller 
+    
 
 
