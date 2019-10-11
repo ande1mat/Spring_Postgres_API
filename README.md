@@ -18,11 +18,11 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     
 * Step 2:
     * This is a Maven based Spring boot application so you can enter these commands in the project directory:
-      --> mvn --version //Check your maven version, if not present install it
-      --> mvn clean package //Compile the application code, run the test, and package it as determined by your pom.xml
-      --> mvn spring-boot:run . //start up the service.  Ctl-C to stop the service
-      OR
-    * Import to your favorite IDE - IntelliJ and run from there if you choose.
+          * --> mvn --version //Check your maven version, if not present install it
+          * --> mvn clean package //Compile the application code, run the test, and package it as determined by your pom.xml
+          * --> mvn spring-boot:run . //start up the service.  Ctl-C to stop the service
+    * OR
+          * Import to your favorite IDE - IntelliJ and run from there if you choose.
     
     * Run the application listening on port http://localhost:8080/ set in the Application properties
     * Check the Health Endpoint status should be 'UP' http://localhost:8080/actuator/health
