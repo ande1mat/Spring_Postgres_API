@@ -20,11 +20,14 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
 
 ## API Endpoints
 
-These guidelines aim to support a truly RESTful API. Here are a few exceptions:
-* Put the version number of the API in the URL (see examples below). Don’t accept any requests that do not specify a version number.
-* Allow users to request formats like JSON or XML like this:
-    * http://example.gov/api/v1/magazines.json
-    * http://example.gov/api/v1/magazines.xml
+These steps enable you to run the app locally within your IDE.  In MVP#2 i will provide a docker container and steps to run locally outside of the IDE.
+* IDE and Postgres Setup:
+* Step 1:
+    * abc...
+    * def...
+* Step 2:
+    * abc...
+    * def...
 
 ## MVP1 Features
 
@@ -37,3 +40,14 @@ These guidelines aim to support a truly RESTful API. Here are a few exceptions:
 
 
 ## MVP2 Backlog Features
+
+    * Create a Docker Image of the API, and run it on a Docker Container, connecting to Postgres localhost
+    * Beef up unit test coverage from 60% of lines covered to 90%
+    * Add endpoint for filtering by Cust Id and Cart Number (http://localhost:8080/findCart?id=11&custid=16)
+    * Add Delete by Cart Number endpoint
+    * Clean up the code to have better naming, camelCase, and add java Docs
+    * Add Metrics 
+    * Add Logger/Logback
+    * Add Custom Error Handling in Event Controller 
+
+
