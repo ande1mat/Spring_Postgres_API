@@ -19,4 +19,12 @@ These guidelines aim to support a truly RESTful API. Here are a few exceptions:
 
 ## MVP#1 Features
 
+    * Create a Retail API for a Customer and their Cart details
+    * Enable basic CRUD + Get functions to the Customer and Cart Postgres entities
+    * Enable an external API call to return current weather conditions based on Customers hometown 
+    * Create a custom mapper object for DTO/Model, and enable Mapstruct's mapper library
+    * Create Health Endpoint
+    * Add Unit Tests
+
+
 ## MVP#2 Backlog Features
