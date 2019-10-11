@@ -3,8 +3,8 @@ Example of Springboot API connecting to Postgres DB
 
 * [Local Setup](#local-setup)
 * [API Endpoints](#api-endpoints)
-* [MVP#1 Features](#mvp#1-features)
-* [MVP#2 Backlog Features](#mvp#2-backlog-features)
+* [MVP# Features](#mvp1-features)
+* [MVP# Backlog Features](#mvp2-backlog-features)
 
 ## Local Setup 
 
@@ -19,7 +19,7 @@ These guidelines aim to support a truly RESTful API. Here are a few exceptions:
     * http://example.gov/api/v1/magazines.json
     * http://example.gov/api/v1/magazines.xml
 
-## MVP#1 Features
+## MVP1 Features
 
     * Create a Retail API for a Customer and their Cart details
     * Enable basic CRUD + Get functions to the Customer and Cart Postgres entities
@@ -29,4 +29,4 @@ These guidelines aim to support a truly RESTful API. Here are a few exceptions:
     * Add Unit Tests
 
 
-## MVP#2 Backlog Features
+## MVP2 Backlog Features
