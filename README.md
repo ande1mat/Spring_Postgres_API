@@ -114,8 +114,12 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
     * Add Unit Tests / Test Suite
 
 
-## MVP2 Backlog Features
+## MVP2+ Backlog Features
 
+    * Look at circuit breaker patterns using hystrix library 
+    * Look at using more spring annotations to reduce self written code (such as getter-setter, tostring, equals, hashcode )     * Look at built validations in pojo objects
+    * Add exception handling (search git repo for GlobalExceptionHandler) to handle HTTP exceptions for all REST endpoints
+    * Look into health actuator library
     * Create a Docker Image of the API, and run it on a Docker Container, connecting to Postgres localhost
     * Beef up unit test coverage from 60% of lines covered to 90%
     * Add endpoint for filtering by Cust Id and Cart Number (http://localhost:8080/findCart?id=11&custid=16)
