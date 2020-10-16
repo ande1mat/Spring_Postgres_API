@@ -120,6 +120,7 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
     * Create a Docker Image of the API, and run it on a Docker Container, connecting to Postgres localhost
     * Enable Async multithreading of GET requests from clients and test it.  E.g. https://dzone.com/articles/multi-threading-in-spring-boot-using-completablefu
     * Look at circuit breaker patterns using hystrix library 
+    * Add Rest Retry logic - e.g. https://dzone.com/articles/spring-retry-way-to-handle-failures
     * Look at using more spring annotations to reduce self written code (such as getter-setter, tostring, equals, hashcode )     * Look at built validations in pojo objects
     * Add exception handling (search git repo for GlobalExceptionHandler) to handle HTTP exceptions for all REST endpoints
     * Look into health actuator library
