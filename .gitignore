@@ -1,6 +1,10 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
 ### STS ###
 .apt_generated
 .classpath
@@ -17,7 +21,10 @@
 *.ipr
 
 ### Build Files ###
-/target/*
+build/
+dist/
+bin/
+out
 mvnw
 mvnw.cmd
 
@@ -28,3 +35,5 @@ mvnw.cmd
 /dist/
 /nbdist/
 /.nb-gradle/
+
+
