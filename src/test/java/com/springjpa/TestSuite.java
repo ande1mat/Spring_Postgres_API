@@ -14,13 +14,13 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
         /****** MOCK SERVICE TESTS **********/
-        MockServiceUnitTests.class
+        MockServiceUnitTests.class,
 
 
 
         /****** INTEGRATION TESTS **********/
         /****** THESE INTERACT WITH POSTGRES *********/
-        //IntegrationTests.class,
+        IntegrationTests.class,
 
 })
 

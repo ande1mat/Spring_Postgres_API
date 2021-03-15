@@ -17,7 +17,10 @@
 *.ipr
 
 ### Build Files ###
-/target/*
+build/
+dist/
+bin/
+out
 mvnw
 mvnw.cmd
 
@@ -28,3 +31,5 @@ mvnw.cmd
 /dist/
 /nbdist/
 /.nb-gradle/
+
+

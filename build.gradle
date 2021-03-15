@@ -1,0 +1,99 @@
+group = 'com.springjpa'
+version = '0.0.1-SNAPSHOT'
+
+description = """spring-postgres-api"""
+
+buildscript {
+    ext {
+        //Spring
+        springBootVersion = '2.0.2.RELEASE'
+
+
+        //groovy
+        groovyVersion = '2.4.12'
+
+
+        // source and target Java version
+        javaVersion = '1.8'
+
+
+        //Mapper
+        mapstructVersion = "1.3.0.Beta2"
+
+
+    }
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://repo.spring.io/plugins-snapshot' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'io.spring.gradle:dependency-management-plugin:<<snapshot-version>>'
+        }
+
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+
+
+
+repositories {
+    jcenter()
+    mavenLocal()
+	mavenCentral()
+	maven {
+		url = 'http://repo.maven.apache.org/maven2'
+		}
+}
+
+dependencies {
+
+    //Springboot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.0.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.0.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'2.0.2.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web-services'
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+
+    //Mapstruct Mapper
+    compile 'org.mapstruct:mapstruct:1.4.2.Final'
+    compile group: 'org.mapstruct', name: 'mapstruct', version:'1.3.0.Final'
+    implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+    compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    //Jackson
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.9.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.9.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.9.6'
+
+    //Logback
+    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.2.3'
+
+    //Postgres
+    runtime group: 'org.postgresql', name: 'postgresql', version:'42.2.2'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.0.2.RELEASE'
+
+    //groovy
+    compile "org.codehaus.groovy:groovy-all:3.0.3"
+
+    //testing
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    testImplementation "org.codehaus.groovy:groovy-all:3.0.3"
+    testCompile "org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE"
+    testImplementation 'junit:junit:4.12'
+    compile group: 'org.mockito', name: 'mockito-core', version: '2.6.8'
+
+}
+
+test {
+    useJUnitPlatform()
+}
