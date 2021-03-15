@@ -17,10 +17,10 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     * Run the DDL scripts in the Models Customer and Cart files
     
 * Step 2:
-    * This is a Maven based Spring boot application so you can enter these commands in the project directory:
-    * --> mvn --version //Check your maven version, if not present install it
-    * --> mvn clean package //Compile the application code, run the test, and package it as determined by your pom.xml
-    * --> mvn spring-boot:run . //start up the service.  Ctl-C to stop the service
+    * I changed this from a Maven based Spring boot application to Gradle.  So you can enter these commands in the project directory:
+    * --> gradle --version //Check your gradle version, if not present install it
+    * --> ./gradlew clean build //Compile the application code, run the test, and package it as determined by your build.gradle
+    * --> ./gradlew bootRun //start up the service.  Ctl-C to stop the service
     * OR
           * Import to your favorite IDE - IntelliJ and run from there if you choose.
     
@@ -116,7 +116,7 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
 
 ## MVP2+ Backlog Features
 
-    * Move from Maven to Gradle
+    * Move from Maven to Gradle (Completed)
     * Create a Docker Image of the API, and run it on a Docker Container, connecting to Postgres localhost
     * Enable Async multithreading of GET requests from clients and test it.  E.g. https://dzone.com/articles/multi-threading-in-spring-boot-using-completablefu
     * Look at circuit breaker patterns using hystrix library 
