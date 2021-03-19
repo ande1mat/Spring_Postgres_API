@@ -17,7 +17,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
     * Run the DDL scripts in the Models Customer and Cart files
     
 * Step 2:
-    * I changed this from a Maven based Spring boot application to Gradle.  So you can enter these commands in the project directory:
+    * I changed this from a Maven based Springboot application to Gradle.  So you can enter these commands in the project directory:
     * --> gradle --version //Check your gradle version, if not present install it
     * --> ./gradlew clean build //Compile the application code, run the test, and package it as determined by your build.gradle
     * --> ./gradlew bootRun //start up the service.  Ctl-C to stop the service
