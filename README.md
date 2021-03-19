@@ -104,7 +104,7 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
 
 NOTE: I have added a Postman Collection in this Repo for each of the above endpoints you can import and use yourself
 
-## MVP1 Features (in the current Release)
+### MVP1 Features (in the current Release)
 
     * Create a Retail API for a Customer and their Cart details
     * Enable basic CRUD + Get functions to the Customer and Cart Postgres entities
@@ -114,7 +114,7 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
     * Add Unit Tests / Test Suite
 
 
-## Backlog Features
+#### Backlog Features
 
     * Move from Maven to Gradle (Completed)
     * Look at circuit breaker patterns using hystrix library https://spring.io/guides/gs/circuit-breaker/
