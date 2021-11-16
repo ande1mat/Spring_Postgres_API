@@ -1,5 +1,6 @@
 package com.springjpa.service;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
 import com.springjpa.mapper.ApiDTOBuilder;
 import com.springjpa.mapper.CustToCartMapper;
 import com.springjpa.dto.*;
@@ -112,19 +113,9 @@ public class CustomerService {
 
     }
 
-
+    //Call the external Weather API or the Redis Cache for the weather
     public WeatherResultDto getWeather(String hometown)
     {
-
-        /* ORIGINAL CALL JUST TO API
-        WeatherResultDto weatherResultDto = new WeatherResultDto();
-
-        //Call the Weather  API based on the Customers Home City Name
-        final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
-        RestTemplate restTemplate = new RestTemplate();
-
-        weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
-        */
 
         WeatherResultDto weatherResultDto = new WeatherResultDto();
 
@@ -135,18 +126,17 @@ public class CustomerService {
             // Is connected
             System.out.println("Redis is online, checking its data");
 
-
             //search the Redis cache for the hometown weather
             //'If False Cache does not contain the hometown weather, then call the API, and also save the hometown/weather to the cache
-
-            //ONLY ISSUE IS WE NEED TO CHANGE THIS TO RETURN weatherResultDto Else the weather and main will be blank and not set below
             if (!findCachedWeather(hometown))
 
             {
-                weatherResultDto = findWeather(hometown);
-                Weather weather = new Weather();
-                //WeatherResultDto weatherResultDto = new WeatherResultDto ();
+                //if not in the Cache call the API and save the weather in the cache
+                //Find weather in Redis and and set the weatherResultDto with the contents from Redis
+                weatherResultDto = findWeather (hometown);
+                System.out.println("Using the API for the hometown weather");
 
+                Weather weather = new Weather();
                 weather.setId(hometown);
                 weather.setWeather(weatherResultDto.getWeather());
                 weather.setMain(weatherResultDto.getMain());
@@ -154,71 +144,61 @@ public class CustomerService {
                 //Save to Redis Cache
                 weatherRepository.save(weather);
                 System.out.println("saved the hometown weather to the Redis cache");
-            }
 
+            } else {
+                //if true found it in the cache return the cache contents
+                //Find weather in Redis and and set the weatherResultDto with the contents from Redis
+                weatherResultDto = findCachedValuesWeather (hometown);
+                System.out.println("Found the hometown weather in the Redis cache, using its data");
+            }
         } catch (JedisConnectionException e) {
             // Not connected
             System.out.println("Redis is offline, skipping its use");
             //Call the external Weather API
             weatherResultDto = findWeather(hometown);
         }
-
         return weatherResultDto;
-
     }
 
     private void saveCachedWeather(String hometown) {
         Weather weather = new Weather();
         WeatherResultDto weatherResultDto = new WeatherResultDto ();
-
         weather.setId(hometown);
         weather.setWeather(weatherResultDto.getWeather());
-
         weather.setMain(weatherResultDto.getMain());
-
         weatherRepository.save(weather);
         System.out.println("saved the hometown weather to the Redis cache");
-
     }
 
-    private boolean findCachedWeather(String hometown) {
-        WeatherResultDto weatherResultDto = new WeatherResultDto();
-
-        //#############CODE IS FAILING RIGHT HERE!!!!#########//
-        //https://codeflex.co/java-optional-no-more-nullpointerexception/
-        //Might need to catch that the Entity returned is Null, in this case in Redis.
-        //LOOK at this next for my CRUD Repository
-        // https://stackoverflow.com/questions/51058898/spring-data-jpa-findbyid-method-returning-null-instead-of-empty-optional
-        //Weather retrievedWeather = weatherRepository.findById(hometown).get();
-        //Weather retrievedWeather = weatherRepository.findById(hometown);
+    public boolean findCachedWeather(String hometown) {
 
         //Check if we have a matched hometown in Redis
         //if (retrievedWeather.getId() != null) {
         if (weatherRepository.existsById(hometown)) {
-            Weather retrievedWeather2 = weatherRepository.findById(hometown).get();
-            weatherResultDto.setWeather(retrievedWeather2.getWeather());
-            weatherResultDto.setMain(retrievedWeather2.getMain());
-
             System.out.println("Redis found the hometown weather");
             return true;
-
         }
         System.out.println("Redis did not find the hometown weather");
-
         return false;
     }
 
 
     private WeatherResultDto findWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
-
         System.out.println("Redis did not find the hometown weather, calling the external API");
-
         //Call the Weather  API based on the Customers Home City Name
         final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
         RestTemplate restTemplate = new RestTemplate();
 
         weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
+        return weatherResultDto;
+    }
+
+    private WeatherResultDto findCachedValuesWeather(String hometown) {
+        WeatherResultDto weatherResultDto = new WeatherResultDto();
+        Weather retrievedWeather2 = weatherRepository.findById(hometown).get();
+        weatherResultDto.setWeather(retrievedWeather2.getWeather());
+        weatherResultDto.setMain(retrievedWeather2.getMain());
 
         return weatherResultDto;
     }
