@@ -173,11 +173,11 @@ public class CustomerService {
     public boolean findCachedWeather(String hometown) {
 
         //Check if we have a matched hometown in Redis
-        //if (retrievedWeather.getId() != null) {
         if (weatherRepository.existsById(hometown)) {
             System.out.println("Redis found the hometown weather");
             return true;
         }
+        //Cache config is set to expire the key after 5 minutes, see Weather Model Entity Object settings
         System.out.println("Redis did not find the hometown weather");
         return false;
     }

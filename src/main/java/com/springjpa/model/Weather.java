@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@RedisHash("Weather")
+//@RedisHash("Weather")
+@RedisHash (value = "Weather", timeToLive = 300)
 public class Weather implements Serializable {
 
     public String id;
