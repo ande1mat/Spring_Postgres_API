@@ -1,6 +1,6 @@
 package com.springjpa.service;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import com.springjpa.mapper.ApiDTOBuilder;
 import com.springjpa.mapper.CustToCartMapper;
 import com.springjpa.dto.*;
@@ -17,6 +17,7 @@ import java.lang.String;
 import java.math.BigDecimal;
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.*;
+import java.util.Optional;
 
 
 /**
@@ -52,7 +53,6 @@ public class CustomerService {
         { return ApiDTOBuilder.custToCustWeatherDTO(cust, getWeather(cust.getHomeTown())); }
         else
         { return ApiDTOBuilder.custToCustDTO(cust); }
-
     }
 
     public CartDto getCartByCustId(Long id, Long custid) {
@@ -113,10 +113,9 @@ public class CustomerService {
 
     }
 
-    //Call the external Weather API or the Redis Cache for the weather
+    //Call the external Weather API or the Redis Cache for the weather data
     public WeatherResultDto getWeather(String hometown)
     {
-
         WeatherResultDto weatherResultDto = new WeatherResultDto();
 
         //Check if Redis is up or not, if not up call the API and skip Redis cache else check cache for data
@@ -127,24 +126,17 @@ public class CustomerService {
             System.out.println("Redis is online, checking its data");
 
             //search the Redis cache for the hometown weather
-            //'If False Cache does not contain the hometown weather, then call the API, and also save the hometown/weather to the cache
+            //'If false, Cache does not contain the hometown weather, then call the API, and also save the hometown/weather to the cache
             if (!findCachedWeather(hometown))
-
             {
                 //if not in the Cache call the API and save the weather in the cache
                 //Find weather in Redis and and set the weatherResultDto with the contents from Redis
                 weatherResultDto = findWeather (hometown);
                 System.out.println("Using the API for the hometown weather");
 
-                Weather weather = new Weather();
-                weather.setId(hometown);
-                weather.setWeather(weatherResultDto.getWeather());
-                weather.setMain(weatherResultDto.getMain());
-
                 //Save to Redis Cache
-                weatherRepository.save(weather);
+                saveCachedWeather(hometown, weatherResultDto);
                 System.out.println("saved the hometown weather to the Redis cache");
-
             } else {
                 //if true found it in the cache return the cache contents
                 //Find weather in Redis and and set the weatherResultDto with the contents from Redis
@@ -160,18 +152,15 @@ public class CustomerService {
         return weatherResultDto;
     }
 
-    private void saveCachedWeather(String hometown) {
+    private void saveCachedWeather(String hometown, WeatherResultDto weatherResultDto) {
         Weather weather = new Weather();
-        WeatherResultDto weatherResultDto = new WeatherResultDto ();
         weather.setId(hometown);
         weather.setWeather(weatherResultDto.getWeather());
         weather.setMain(weatherResultDto.getMain());
         weatherRepository.save(weather);
-        System.out.println("saved the hometown weather to the Redis cache");
     }
 
     public boolean findCachedWeather(String hometown) {
-
         //Check if we have a matched hometown in Redis
         if (weatherRepository.existsById(hometown)) {
             System.out.println("Redis found the hometown weather");
@@ -181,8 +170,7 @@ public class CustomerService {
         System.out.println("Redis did not find the hometown weather");
         return false;
     }
-
-
+    
     private WeatherResultDto findWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
         System.out.println("Redis did not find the hometown weather, calling the external API");
