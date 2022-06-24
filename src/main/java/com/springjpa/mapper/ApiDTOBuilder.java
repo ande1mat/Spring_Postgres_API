@@ -1,5 +1,6 @@
 package com.springjpa.mapper;
 
+import com.springjpa.dto.CloudsDto;
 import com.springjpa.dto.CustomerDto;
 import com.springjpa.dto.CartDto;
 import com.springjpa.dto.WeatherResultDto;
@@ -18,6 +19,17 @@ public class ApiDTOBuilder {
         CustomerDto.setFirstname(cust.getFirstName());
         CustomerDto.setLastname(cust.getLastName());
         CustomerDto.setHometown(cust.getHomeTown());
+
+        return CustomerDto;
+    }
+
+    public static CustomerDto custToCustWeather(Customer cust) {
+        CustomerDto CustomerDto = new CustomerDto();
+
+        CustomerDto.setId(cust.getid());
+        CustomerDto.setFirstname(cust.getFirstName());
+        CustomerDto.setLastname(cust.getLastName());
+        CustomerDto.setHometown("No Weather Found for this hometown.  Please Try Again Later");
 
         return CustomerDto;
     }
