@@ -17,7 +17,7 @@ import java.lang.String;
 import java.math.BigDecimal;
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.*;
-import java.util.Optional;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 /**
@@ -44,6 +44,7 @@ public class CustomerService {
         this.weatherRepository = weatherRepository;
     }
 
+    @HystrixCommand (fallbackMethod = "defaultWeather")
     public CustomerDto getCustById(Long id) {
         //Call the CartDAO repository
         Customer cust = customerRepository.findByid(id);
@@ -54,6 +55,15 @@ public class CustomerService {
         else
         { return ApiDTOBuilder.custToCustDTO(cust); }
     }
+
+    //Hystrix Fallback Method when Weather API Fails.
+    public CustomerDto defaultWeather(Long id) {
+
+        Customer cust = customerRepository.findByid(id);
+        System.out.println("Weather API is busy calling default method");
+        return ApiDTOBuilder.custToCustWeather(cust);
+    }
+
 
     public CartDto getCartByCustId(Long id, Long custid) {
         //Call the CartDAO repository
@@ -170,17 +180,19 @@ public class CustomerService {
         System.out.println("Redis did not find the hometown weather");
         return false;
     }
-    
+
     private WeatherResultDto findWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
         System.out.println("Redis did not find the hometown weather, calling the external API");
         //Call the Weather  API based on the Customers Home City Name
         final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
+
         RestTemplate restTemplate = new RestTemplate();
 
         weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
         return weatherResultDto;
     }
+
 
     private WeatherResultDto findCachedValuesWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
