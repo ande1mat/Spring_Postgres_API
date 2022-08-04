@@ -91,12 +91,9 @@ dependencies {
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     //Jackson
-    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.9.6'
-    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.9.6'
-    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.9.6'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.9.10.8'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.9.10.8'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.9.10.8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.11.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.11.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.11.2'
 
     //Logback
     compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.2.3'

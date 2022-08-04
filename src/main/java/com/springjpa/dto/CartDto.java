@@ -1,12 +1,7 @@
 package com.springjpa.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.type.BigDecimalType;
-import org.hibernate.type.DoubleType;
-
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class CartDto {
