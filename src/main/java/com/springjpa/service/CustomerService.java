@@ -60,10 +60,9 @@ public class CustomerService {
     public CustomerDto defaultWeather(Long id) {
 
         Customer cust = customerRepository.findByid(id);
-        System.out.println("Weather API is busy calling default method");
+        System.out.println("Hystrix circuit breaker triggered, using default method");
         return ApiDTOBuilder.custToCustWeather(cust);
     }
-
 
     public CartDto getCartByCustId(Long id, Long custid) {
         //Call the CartDAO repository
@@ -184,15 +183,18 @@ public class CustomerService {
     private WeatherResultDto findWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
         System.out.println("Redis did not find the hometown weather, calling the external API");
-        //Call the Weather  API based on the Customers Home City Name
-        final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
+        try {
+            //Call the Weather  API based on the Customers Home City Name
+            final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
+            RestTemplate restTemplate = new RestTemplate();
+            weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Encountered a problem calling the Weather API");
+        }
         return weatherResultDto;
     }
-
 
     private WeatherResultDto findCachedValuesWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
