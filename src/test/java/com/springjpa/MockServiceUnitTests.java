@@ -8,7 +8,8 @@ import com.springjpa.service.CustomerService;
 import com.springjpa.model.Customer;
 import com.springjpa.model.Cart;
 import org.mockito.*;
-import org.junit.Test;
+//import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -17,7 +18,12 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import java.util.Optional;
+
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -46,7 +52,7 @@ public class MockServiceUnitTests {
         int i=16;
         Long l = new Long(i);
 
-        when(daoCustomerMock.findByid(l)).thenReturn(new Customer());
+        when(daoCustomerMock.findByid(l)).thenReturn(Optional.of(new Customer()));
         CustomerDto customerdto = service.getCustById(l);
         assertEquals(customerdto, service.getCustById(l));
 
@@ -70,7 +76,7 @@ public class MockServiceUnitTests {
         int i=16;
         Long l = new Long(i);
 
-        when(daoCustomerMock.findByid(l)).thenReturn(new Customer());
+        when(daoCustomerMock.findByid(l)).thenReturn(Optional.of(new Customer()));
         service.deleteCustomer(l);
         verify(daoCustomerMock, times(1)).delete(new Customer());
 
@@ -80,15 +86,15 @@ public class MockServiceUnitTests {
     @Test
     public void testServiceUpdateCustomer() {
 
-        //int i=16;
-        //Long l = new Long(i);
+        int i=16;
+        Long l = new Long(i);
 
-        //when(daoCustomerMock.save(any(Customer.class))).thenReturn(new Customer());
-        //Customer customer = new Customer();
-        //(Long id, String fname, String lname, String htown
-        //System.out.println(service.updateCustomer(any(), any(), any(), any()));
-        //Customer cust = service.updateCustomer(1L, "test", "test", "test");
-        //assertEquals(customer, service.updateCustomer());
+        when(daoCustomerMock.save(any(Customer.class))).thenReturn(new Customer());
+        Customer customer = new Customer();
+        //Long id, String fname, String lname, String htown
+        System.out.println(service.updateCustomer(any(), any(), any(), any()));
+        Customer cust = service.updateCustomer(1L, "test", "test", "test");
+        assertEquals(customer, service.updateCustomer(1L, "test", "test", "test"));
 
 
     }

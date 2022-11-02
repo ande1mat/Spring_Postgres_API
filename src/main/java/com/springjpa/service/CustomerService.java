@@ -1,6 +1,6 @@
 package com.springjpa.service;
 
-
+import com.springjpa.exception.NotFoundException;
 import com.springjpa.mapper.ApiDTOBuilder;
 import com.springjpa.mapper.CustToCartMapper;
 import com.springjpa.dto.*;
@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.*;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-
 
 /**
  * Created by z042183 on 10/14/18.
@@ -44,10 +43,11 @@ public class CustomerService {
         this.weatherRepository = weatherRepository;
     }
 
-    @HystrixCommand (fallbackMethod = "defaultWeather")
+    @HystrixCommand(fallbackMethod = "CircuitWeather")  //Circuit breaker for external Weather API call below
     public CustomerDto getCustById(Long id) {
         //Call the CartDAO repository
-        Customer cust = customerRepository.findByid(id);
+        //Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).orElseThrow( () -> new NotFoundException(String.format("Customer not found",  id)));
 
         //If the Customer's hometown is present get the current weather conditions
         if (cust.getHomeTown() != null)
@@ -55,12 +55,11 @@ public class CustomerService {
         else
         { return ApiDTOBuilder.custToCustDTO(cust); }
     }
-
+    
     //Hystrix Fallback Method when Weather API Fails.
-    public CustomerDto defaultWeather(Long id) {
-
-        Customer cust = customerRepository.findByid(id);
-        System.out.println("Hystrix circuit breaker triggered, using default method");
+    public CustomerDto CircuitWeather (Long id) {
+        Customer cust = customerRepository.findByid(id).orElseThrow( () -> new NotFoundException(String.format("Customer not found",  id)));
+        System.out.println("Hystrix circuit breaker is open for the weather API, using default method");
         return ApiDTOBuilder.custToCustWeather(cust);
     }
 
@@ -73,7 +72,7 @@ public class CustomerService {
 
     public CustomerCartDto getCustCartById(Long id) {
         //Call the CarDAO repository
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).get();
 
         //Return the Mapstruct mapper interface object (CustomerCartDto) from the service call
         return CustToCartMapper.INSTANCE.custToCustomerCartDto(cust);
@@ -90,7 +89,7 @@ public class CustomerService {
     }
 
     public void deleteCustomer (Long id) {
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).get();
         customerRepository.delete(cust);
     }
 
@@ -112,7 +111,7 @@ public class CustomerService {
     }
 
     public Customer updateCustomer (Long id, String fname, String lname, String htown) {
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).get();
 
         cust.setFirstName(fname);
         cust.setLastName(lname);
@@ -180,7 +179,8 @@ public class CustomerService {
         return false;
     }
 
-    private WeatherResultDto findWeather(String hometown) {
+
+    public WeatherResultDto findWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
         System.out.println("Redis did not find the hometown weather, calling the external API");
 
@@ -196,6 +196,7 @@ public class CustomerService {
         return weatherResultDto;
     }
 
+
     private WeatherResultDto findCachedValuesWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
         Weather retrievedWeather2 = weatherRepository.findById(hometown).get();
@@ -204,5 +205,4 @@ public class CustomerService {
 
         return weatherResultDto;
     }
-
 }
