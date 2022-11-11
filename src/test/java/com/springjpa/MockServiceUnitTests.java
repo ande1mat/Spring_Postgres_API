@@ -2,32 +2,25 @@ package com.springjpa;
 
 import com.springjpa.dto.CartDto;
 import com.springjpa.dto.CustomerDto;
-import com.springjpa.repository.CustomerRepository;
+import com.springjpa.model.Cart;
 import com.springjpa.repository.CartRepository;
+import com.springjpa.repository.CustomerRepository;
 import com.springjpa.service.CustomerService;
 import com.springjpa.model.Customer;
-import com.springjpa.model.Cart;
-import org.mockito.*;
-//import org.junit.Test;
+import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.junit.Before;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
-
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 
-@RunWith(SpringRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class MockServiceUnitTests {
 
     @Mock
@@ -36,15 +29,13 @@ public class MockServiceUnitTests {
     @Mock
     private CartRepository daoCartMock;
 
-
     @InjectMocks
     private CustomerService service;
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
-
 
     @Test
     public void testServiceFindCustomer() {
@@ -55,10 +46,7 @@ public class MockServiceUnitTests {
         when(daoCustomerMock.findByid(l)).thenReturn(Optional.of(new Customer()));
         CustomerDto customerdto = service.getCustById(l);
         assertEquals(customerdto, service.getCustById(l));
-
     }
-
-
 
     @Test
     public void testServiceSaveCustomer() {
@@ -66,7 +54,6 @@ public class MockServiceUnitTests {
         when(daoCustomerMock.save(any(Customer.class))).thenReturn(new Customer());
         Customer customer = new Customer();
         assertEquals(customer, service.saveCustomer(customer));
-
     }
 
 
@@ -86,15 +73,33 @@ public class MockServiceUnitTests {
     @Test
     public void testServiceUpdateCustomer() {
 
+        /*
+        Customer cust = customerRepository.findByid(id).get();
+
+        cust.setFirstName(fname);
+        cust.setLastName(lname);
+        cust.setHomeTown(htown);
+        customerRepository.save(cust);
+        return cust;
+         */
+
+
         int i=16;
         Long l = new Long(i);
 
-        when(daoCustomerMock.save(any(Customer.class))).thenReturn(new Customer());
+        //when(mock.isOk()).thenReturn(true);
+        //when(mock.isOk()).thenThrow(exception);
+        //doThrow(exception).when(mock).someVoidMethod();
+
+
+        when(service.updateCustomer(1L, "test", "test", "test"));
+
+
         Customer customer = new Customer();
         //Long id, String fname, String lname, String htown
-        System.out.println(service.updateCustomer(any(), any(), any(), any()));
+        //System.out.println(service.updateCustomer(any(), any(), any(), any()));
         Customer cust = service.updateCustomer(1L, "test", "test", "test");
-        assertEquals(customer, service.updateCustomer(1L, "test", "test", "test"));
+        Assertions.assertEquals(customer, cust);
 
 
     }
@@ -105,7 +110,7 @@ public class MockServiceUnitTests {
     public void testServiceFindCart() {
 
         int i=16;
-        Long l = new Long(i);
+        Long l = (long) i;
 
         when(daoCartMock.findByIdAndCustid(l, l)).thenReturn(new Cart());
         CartDto cartdto = service.getCartByCustId(l,l);
@@ -136,3 +141,5 @@ public class MockServiceUnitTests {
     }
 
 }
+
+

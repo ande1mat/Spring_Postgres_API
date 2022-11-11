@@ -29,8 +29,6 @@ buildscript {
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-
-        //NEW NEW
         classpath "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         classpath 'io.spring.gradle:dependency-management-plugin:<<snapshot-version>>'
         }
@@ -49,9 +47,9 @@ repositories {
     jcenter()
     mavenLocal()
 	mavenCentral()
-	maven {
-		url = 'http://repo.maven.apache.org/maven2'
-		}
+
+    mavenCentral()
+    maven { url "https://dl.bintray.com/mockito/maven" }
 }
 
 dependencyManagement {
@@ -102,18 +100,20 @@ dependencies {
 
     //Postgres
     runtime group: 'org.postgresql', name: 'postgresql', version:'42.2.2'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.0.2.RELEASE'
 
     //groovy
     compile "org.codehaus.groovy:groovy-all:3.0.3"
 
     //testing
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-    testImplementation "org.codehaus.groovy:groovy-all:3.0.3"
-    testCompile "org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE"
-    testImplementation 'junit:junit:4.12'
-    compile group: 'org.mockito', name: 'mockito-core', version: '2.6.8'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.7.0'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.7.0'
+    implementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.12.10'
+    testImplementation group: 'net.bytebuddy', name: 'byte-buddy-agent', version: '1.12.12'
+    implementation group: 'net.bytebuddy', name: 'byte-buddy-dep', version: '1.12.12'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.8.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
 
 }
 
