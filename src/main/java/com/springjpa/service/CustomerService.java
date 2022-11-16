@@ -22,7 +22,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 /**
  * Created by z042183 on 10/14/18.
  * If the data needs any transformation, we do it in the service layer before send it to the DAO.
- * The DAO returns a entity or persistence object
+ * The DAO returns an entity or persistence object
  */
 @Component
 public class CustomerService {
@@ -46,7 +46,6 @@ public class CustomerService {
     @HystrixCommand(fallbackMethod = "CircuitWeather")  //Circuit breaker for external Weather API call below
     public CustomerDto getCustById(Long id) {
         //Call the CartDAO repository
-        //Customer cust = customerRepository.findByid(id);
         Customer cust = customerRepository.findByid(id).orElseThrow( () -> new NotFoundException(String.format("Customer not found",  id)));
 
         //If the Customer's hometown is present get the current weather conditions

@@ -11,10 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
-    //Customer findByid(Long id);
     Optional<Customer> findByid(Long id);
-
-
 
     //MVP #2 filter number Cust Id and Cart Number
     //@Query("FROM customer ca, cart ca WHERE cu.id = :id AND cartnumber = :cartnumber")

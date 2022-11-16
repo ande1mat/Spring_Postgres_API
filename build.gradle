@@ -24,7 +24,6 @@ buildscript {
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url 'https://repo.spring.io/plugins-snapshot' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -36,7 +35,7 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: "io.spring.dependency-management"
@@ -44,7 +43,6 @@ apply plugin: "io.spring.dependency-management"
 defaultTasks 'clean', 'build'
 
 repositories {
-    jcenter()
     mavenLocal()
 	mavenCentral()
 
@@ -61,48 +59,45 @@ dependencyManagement {
 dependencies {
 
     //Springboot
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.0.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.0.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'2.0.2.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-web-services'
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.5.7'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.0.2.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'2.0.2.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
 
     //Hibernate
     implementation 'org.hibernate:hibernate-core:5.4.2.Final'
     implementation 'org.hibernate:hibernate-entitymanager:5.4.2.Final'
 
     //Spring Cloud Netflix
-    compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
 
     //Redis Cache
-    compile 'org.springframework.data:spring-data-redis'
-    compile('org.springframework.boot:spring-boot-starter-data-redis') {
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation('org.springframework.boot:spring-boot-starter-data-redis') {
         exclude group: 'io.lettuce', module: 'lettuce-core'
     }
-    compile 'redis.clients:jedis'
+    implementation 'redis.clients:jedis'
 
     //Mapstruct Mapper
-    compile group: 'org.mapstruct', name: 'mapstruct', version:'1.5.1.Final'
+    implementation group: 'org.mapstruct', name: 'mapstruct', version:'1.5.1.Final'
     implementation("org.mapstruct:mapstruct:${mapstructVersion}")
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     //Jackson
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.11.2'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.11.2'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.11.2'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.11.2'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.11.2'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.11.2'
 
     //Logback
-    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.2.3'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version:'1.2.3'
 
     //Postgres
-    runtime group: 'org.postgresql', name: 'postgresql', version:'42.2.2'
+    runtimeOnly group: 'org.postgresql', name: 'postgresql', version:'42.2.2'
 
     //groovy
-    compile "org.codehaus.groovy:groovy-all:3.0.3"
+    implementation "org.codehaus.groovy:groovy-all:3.0.3"
 
     //testing
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.0'

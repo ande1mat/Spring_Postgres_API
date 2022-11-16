@@ -1,6 +1,5 @@
 package com.springjpa;
 
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -15,7 +14,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
         /****** MOCK SERVICE TESTS **********/
         MockServiceUnitTests.class,
-
 
 
         /****** INTEGRATION TESTS **********/

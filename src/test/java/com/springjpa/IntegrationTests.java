@@ -46,34 +46,34 @@ public class IntegrationTests {
 	public void getCustomerByCustIdTest() throws Exception
 	{
 		mockMvc.perform( MockMvcRequestBuilders
-				.get("/findCust?id=16", 1)
+				.get("/findCust?id=1", 1)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.Id").value(16));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.Id").value(1));
 	}
 
     @Test
     public void getCartByCustIdTest() throws Exception
     {
         mockMvc.perform( MockMvcRequestBuilders
-                .get("/findCart?id=11&custid=16", 1)
+                .get("/findCart?id=1&custid=1", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.Id").value(11))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.custId").value(16));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.Id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custId").value(1));
     }
 
     @Test
     public void getCustCartByCustIdTest() throws Exception
     {
         mockMvc.perform( MockMvcRequestBuilders
-                .get("/findCustCart?id=16", 1)
+                .get("/findCustCart?id=1", 1)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.Id").value(16));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.Id").value(1));
     }
 
     @Test

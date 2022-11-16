@@ -41,7 +41,7 @@ public class MockServiceUnitTests {
     public void testServiceFindCustomer() {
 
         int i=16;
-        Long l = new Long(i);
+        Long l = (long) i;
 
         when(daoCustomerMock.findByid(l)).thenReturn(Optional.of(new Customer()));
         CustomerDto customerdto = service.getCustById(l);
@@ -61,7 +61,7 @@ public class MockServiceUnitTests {
     public void testServiceDeleteCustomer() {
 
         int i=16;
-        Long l = new Long(i);
+        Long l = (long) i;
 
         when(daoCustomerMock.findByid(l)).thenReturn(Optional.of(new Customer()));
         service.deleteCustomer(l);
@@ -73,37 +73,12 @@ public class MockServiceUnitTests {
     @Test
     public void testServiceUpdateCustomer() {
 
-        /*
-        Customer cust = customerRepository.findByid(id).get();
-
-        cust.setFirstName(fname);
-        cust.setLastName(lname);
-        cust.setHomeTown(htown);
-        customerRepository.save(cust);
-        return cust;
-         */
-
-
-        int i=16;
-        Long l = new Long(i);
-
-        //when(mock.isOk()).thenReturn(true);
-        //when(mock.isOk()).thenThrow(exception);
-        //doThrow(exception).when(mock).someVoidMethod();
-
-
-        when(service.updateCustomer(1L, "test", "test", "test"));
-
-
-        Customer customer = new Customer();
-        //Long id, String fname, String lname, String htown
-        //System.out.println(service.updateCustomer(any(), any(), any(), any()));
+        when(daoCustomerMock.findByid(1L)).thenReturn(Optional.of(new Customer()));
         Customer cust = service.updateCustomer(1L, "test", "test", "test");
+        Customer customer = service.updateCustomer(1L, "test", "test", "test");
         Assertions.assertEquals(customer, cust);
 
-
     }
-
 
 
     @Test
@@ -132,7 +107,7 @@ public class MockServiceUnitTests {
     public void testServiceDeleteCart() {
 
         int i=16;
-        Long l = new Long(i);
+        Long l = (long) i;
 
         when(daoCartMock.findByid(l)).thenReturn(new Cart());
         service.deleteCart(l);

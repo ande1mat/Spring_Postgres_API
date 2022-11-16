@@ -7,7 +7,6 @@ package com.springjpa.controller;
 import com.springjpa.dto.CustomerCartDto;
 import com.springjpa.dto.CustomerDto;
 import com.springjpa.dto.CartDto;
-//import com.springjpa.exception.NotFoundException;
 import com.springjpa.model.Customer;
 import com.springjpa.model.Cart;
 import com.springjpa.repository.CartRepository;
@@ -20,10 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotBlank;
-import java.util.NoSuchElementException;
-//import com.springjpa.exception.GlobalExceptionHandler;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 @RestController
 public class EventController {
