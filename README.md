@@ -3,12 +3,13 @@ Example of Springboot API connecting to Postgres DB
 
 * [Local Setup](#local-setup)
 * [API Endpoints](#api-endpoints)
-* [MVP1 Features](#mvp1-features)
-* [Backlog Features](#backlog-features)
+* [MVP1 Features](#MVP1-Features)
+* [MVP2 Features](#MVP2-Features)
+* [Future Work](#Future-ToDos)
 
 ## Local Setup 
 
-These steps enable you to run the app locally within your IDE.  In MVP#2 i will provide a docker container and steps to run locally outside of the IDE.
+These steps enable you to run the app locally within your IDE.  
 * IDE and Postgres Setup:
 
 * Step 1:
@@ -104,35 +105,34 @@ These steps enable you to run the app locally within your IDE.  In MVP#2 i will 
 
 NOTE: I have added a Postman Collection in this Repo for each of the above endpoints you can import and use yourself
 
-# MVP1 Features
+## MVP1 Features
 
-    * Create a Retail API for a Customer and their Cart details
-    * Enable basic CRUD + Get functions to the Customer and Cart Postgres entities
-    * Enable an external API call to return current weather conditions based on Customers hometown 
-    * Create a custom mapper object for DTO/Model, and enable Mapstruct's mapper library
-    * Create Health Endpoint
-    * Add Unit Tests / Test Suite
+    * Created a Retail API for a Customer and their Cart details
+    * Enabled basic CRUD + Get functions to the Customer and Cart Postgres entities
+    * Enabled an external API call to return current weather conditions based on Customers hometown 
+    * Created a custom mapper object for DTO/Model, and enable Mapstruct's mapper library
+    * Created Health Endpoint
+    * Added Unit Tests / Test Suite
+    
+## MVP2 Features
 
+    * Added a Redis Cache for the weather API response for citys
+    * Added a Hystrix Curcuit breaker on the external Weather API call
+    * Upgraded Gradle Version and Build Gradle to work with Spring 2 and Java 11
+    * Added Controller Advice and Global Exception Handling
+    * Updated Unit and Integration Tests
+    * Expanded Actuator Health Checks to include Postgres and Redis
 
-# Backlog Features
-
-    * Move from Maven to Gradle (Completed)
-    * Look at circuit breaker patterns using hystrix library https://spring.io/guides/gs/circuit-breaker/
+## Future ToDos
+    * Add no Cart found exception handling
+    * Update Test Suite to work with Unit 5
     * Create a Docker Image of the API, and run it on a Docker Container, connecting to Postgres localhost
-    * Enable Async multithreading of GET requests from clients and test it.  E.g. https://dzone.com/articles/multi-threading-in-spring-boot-using-completablefu
-    * Add Rest Retry logic - e.g. https://dzone.com/articles/spring-retry-way-to-handle-failures
-    * Look at using more spring annotations to reduce self written code (such as getter-setter, tostring, equals, hashcode )     * Look at built validations in pojo objects
-    * Add exception handling (search git repo for GlobalExceptionHandler) to handle HTTP exceptions for all REST endpoints
-    * Look into health actuator library
-    * Beef up unit test coverage from 60% of lines covered to 90%
+    * Beef up unit test coverage from ~60% of lines covered to ~90%
     * Add endpoint for filtering by Cust Id and Cart Number (http://localhost:8080/findCart?id=11&custid=16)
     * Add Delete by Cart Number endpoint
     * Clean up the code to have better naming, camelCase, and add java Docs
-    * Add Metrics 
+    * Add Micrometer Metrics 
     * Add Logger/Logback out to file or Elastic
-    * Add Custom Error Handling in Event Controller 
     * Setup Deployment Pipeline to K8s (Minikube) or Cloud Env using Drone, and add Secrets, etc.
     
-    
-
-
+   

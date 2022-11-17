@@ -12,6 +12,4 @@ public interface CartRepository extends JpaRepository<Cart, Long>{
         @Query("FROM cart WHERE id = :id AND custid = :custid")
         Cart findByIdAndCustid(@Param("id") Long id, @Param("custid") Long custid);
 
-
-
 }

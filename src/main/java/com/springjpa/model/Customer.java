@@ -1,10 +1,9 @@
 package com.springjpa.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.*;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.*;
 
@@ -53,7 +52,7 @@ public class Customer implements Serializable {
     //Manage the hibernate PK sequence in Postgres
     private static final Long serialVersionUID = -3009157732242241606L;
     @Id
-    @JsonIgnore
+    //@JsonIgnore
     @SequenceGenerator(name="identifier", sequenceName="hibernate_sequence_customer", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="identifier")
     @Column(name = "id")

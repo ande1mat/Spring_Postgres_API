@@ -1,6 +1,6 @@
 package com.springjpa.service;
 
-
+import com.springjpa.exception.NotFoundException;
 import com.springjpa.mapper.ApiDTOBuilder;
 import com.springjpa.mapper.CustToCartMapper;
 import com.springjpa.dto.*;
@@ -19,11 +19,10 @@ import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.*;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
-
 /**
  * Created by z042183 on 10/14/18.
  * If the data needs any transformation, we do it in the service layer before send it to the DAO.
- * The DAO returns a entity or persistence object
+ * The DAO returns an entity or persistence object
  */
 @Component
 public class CustomerService {
@@ -44,10 +43,10 @@ public class CustomerService {
         this.weatherRepository = weatherRepository;
     }
 
-    @HystrixCommand (fallbackMethod = "defaultWeather")
+    @HystrixCommand(fallbackMethod = "CircuitWeather")  //Circuit breaker for external Weather API call below
     public CustomerDto getCustById(Long id) {
         //Call the CartDAO repository
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).orElseThrow( () -> new NotFoundException(String.format("Customer not found",  id)));
 
         //If the Customer's hometown is present get the current weather conditions
         if (cust.getHomeTown() != null)
@@ -55,15 +54,13 @@ public class CustomerService {
         else
         { return ApiDTOBuilder.custToCustDTO(cust); }
     }
-
+    
     //Hystrix Fallback Method when Weather API Fails.
-    public CustomerDto defaultWeather(Long id) {
-
-        Customer cust = customerRepository.findByid(id);
-        System.out.println("Weather API is busy calling default method");
+    public CustomerDto CircuitWeather (Long id) {
+        Customer cust = customerRepository.findByid(id).orElseThrow( () -> new NotFoundException(String.format("Customer not found",  id)));
+        System.out.println("Hystrix circuit breaker is open for the weather API, using default method");
         return ApiDTOBuilder.custToCustWeather(cust);
     }
-
 
     public CartDto getCartByCustId(Long id, Long custid) {
         //Call the CartDAO repository
@@ -74,7 +71,7 @@ public class CustomerService {
 
     public CustomerCartDto getCustCartById(Long id) {
         //Call the CarDAO repository
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).get();
 
         //Return the Mapstruct mapper interface object (CustomerCartDto) from the service call
         return CustToCartMapper.INSTANCE.custToCustomerCartDto(cust);
@@ -91,7 +88,7 @@ public class CustomerService {
     }
 
     public void deleteCustomer (Long id) {
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).get();
         customerRepository.delete(cust);
     }
 
@@ -113,7 +110,7 @@ public class CustomerService {
     }
 
     public Customer updateCustomer (Long id, String fname, String lname, String htown) {
-        Customer cust = customerRepository.findByid(id);
+        Customer cust = customerRepository.findByid(id).get();
 
         cust.setFirstName(fname);
         cust.setLastName(lname);
@@ -181,15 +178,20 @@ public class CustomerService {
         return false;
     }
 
-    private WeatherResultDto findWeather(String hometown) {
+
+    public WeatherResultDto findWeather(String hometown) {
         WeatherResultDto weatherResultDto = new WeatherResultDto();
         System.out.println("Redis did not find the hometown weather, calling the external API");
-        //Call the Weather  API based on the Customers Home City Name
-        final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
+        try {
+            //Call the Weather  API based on the Customers Home City Name
+            final String uri = "http://api.openweathermap.org/data/2.5/weather?q=" + hometown + "&units=imperial&APPID=d9687f6bd4c0adb550b79bbaddd3e421";
+            RestTemplate restTemplate = new RestTemplate();
+            weatherResultDto = restTemplate.getForObject(uri, WeatherResultDto.class);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Encountered a problem calling the Weather API");
+        }
         return weatherResultDto;
     }
 
@@ -202,5 +204,4 @@ public class CustomerService {
 
         return weatherResultDto;
     }
-
 }

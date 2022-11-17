@@ -24,7 +24,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisStandaloneConfiguration.setHostName("localhost");
         redisStandaloneConfiguration.setPort(6379);
         redisStandaloneConfiguration.setDatabase(0);
-        //redisStandaloneConfiguration.setPassword(RedisPassword.of("password"));
 
         JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
         jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s connection timeout

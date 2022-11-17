@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotBlank;
 
 
-
 @RestController
 public class EventController {
 
@@ -178,7 +177,6 @@ public class EventController {
         //logger.debug("get /deletecart called");
         return new ResponseEntity(HttpStatus.OK);
     }
-
 
 
 
