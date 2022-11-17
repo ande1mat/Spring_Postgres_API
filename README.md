@@ -3,9 +3,9 @@ Example of Springboot API connecting to Postgres DB
 
 * [Local Setup](#local-setup)
 * [API Endpoints](#api-endpoints)
-* [MVP1 Features](#MVP1 Features:)
-* [MVP2 Features](#MVP2 Features:)
-* [Backlog Features](#Future ToDos)
+* [MVP1 Features](#MVP1-Features:)
+* [MVP2 Features](#MVP2-Features:)
+* [Backlog Features](#Future-ToDos)
 
 ## Local Setup 
 
