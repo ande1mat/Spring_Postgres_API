@@ -3,8 +3,9 @@ Example of Springboot API connecting to Postgres DB
 
 * [Local Setup](#local-setup)
 * [API Endpoints](#api-endpoints)
-* [MVP1 Features](#mvp1-features)
-* [Backlog Features](#backlog-features)
+* [MVP1 Features](#MVP1 Features:)
+* [MVP2 Features](#MVP2 Features:)
+* [Backlog Features](#Future ToDos)
 
 ## Local Setup 
 
@@ -104,7 +105,7 @@ These steps enable you to run the app locally within your IDE.
 
 NOTE: I have added a Postman Collection in this Repo for each of the above endpoints you can import and use yourself
 
-# MVP1 Features:
+# MVP1 Features
 
     * Created a Retail API for a Customer and their Cart details
     * Enabled basic CRUD + Get functions to the Customer and Cart Postgres entities
@@ -113,7 +114,7 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
     * Created Health Endpoint
     * Added Unit Tests / Test Suite
     
-# MVP2 Features:
+# MVP2 Features
 
     * Added a Redis Cache for the weather API response for citys
     * Added a Hystrix Curcuit breaker on the external Weather API call
@@ -122,7 +123,7 @@ NOTE: I have added a Postman Collection in this Repo for each of the above endpo
     * Updated Unit and Integration Tests
     * Expanded Actuator Health Checks to include Postgres and Redis
 
-# Future ToDos:
+# Future ToDos
     * Add no Cart found exception handling
     * Update Test Suite to work with Unit 5
     * Create a Docker Image of the API, and run it on a Docker Container, connecting to Postgres localhost
